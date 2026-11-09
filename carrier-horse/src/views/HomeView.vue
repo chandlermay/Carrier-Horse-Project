@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-
+import HomeRouteMap from '../components/HomeRouteMap.vue'
 const router = useRouter()
 
 function goToDashboard() {
@@ -17,9 +17,7 @@ function goToSignUp() {
     <main class="home-page">
         <section class="hero">
             <p class="tagline">Carrier Horse sends messages at horse-speed.</p>
-            <div class="animation-placeholder">
-                <span>Horse animation goes here</span>
-            </div>
+            <HomeRouteMap />
         </section>
         <nav class="home-nav">
             <button @click="goToDashboard">Send a horse →</button>
@@ -33,7 +31,7 @@ function goToSignUp() {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
 .home-page {
-  min-height: calc(100vh - 80px);
+  min-height: 100dvh;
   background-color: #e5ca98;
 
   display: flex;
@@ -51,38 +49,19 @@ function goToSignUp() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   text-align: center;
 }
 
 .tagline {
-  max-width: 850px;
+  max-width: 100rem;
   margin: 0;
 
   font-family: 'Rye', serif;
-  font-size: clamp(2.3rem, 5vw, 4.8rem);
+  font-size: clamp(2rem, 4.5vw, 4.8rem);
   font-weight: 400;
   line-height: 1.1;
 
   color: #2f241c;
-}
-
-.animation-placeholder {
-  width: min(500px, 75vw);
-  height: 240px;
-
-  margin-top: 55px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 2px dashed rgba(47, 36, 28, 0.35);
-  border-radius: 18px;
-
-  color: rgba(47, 36, 28, 0.55);
-
-  font-family: 'Rye', serif;
 }
 
 .home-nav {
@@ -90,7 +69,8 @@ function goToSignUp() {
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 1.5rem;
+  margin-top: 3rem;
 }
 
 .home-nav button {
@@ -140,7 +120,7 @@ function goToSignUp() {
   }
 
   .tagline {
-    font-size: 2.6rem;
+    font-size: 2.5rem;
   }
 
   .animation-placeholder {
