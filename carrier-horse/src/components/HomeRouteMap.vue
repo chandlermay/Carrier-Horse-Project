@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import usaMap from './usa.svg'
-import horseLogo from "./Vintage Galloping Mail Horse Logo.png"
+import horseLogo from "../assets/Vintage Galloping Mail Horse Logo.png"
 
 const routes = [
     {
@@ -86,50 +86,52 @@ function chooseRoute(index) {
 
 <template>
     <section class="route-map">
-        <div class="map-frame">
+        <div class="map-panel">
+            <div class="map-frame">
 
-            <!-- Permanent map -->
-            <img :src="usaMap" class="map-image" alt="Map of the continental United States" />
+                <!-- Permanent map -->
+                <img :src="usaMap" class="map-image" alt="Map of the continental United States" />
 
-            <!-- Everything inside here changes independently -->
-            <svg class="route-overlay" viewBox="477 421 593.3779761904764 318.2870370370371"
-                preserveAspectRatio="xMidYMid meet">
-                <!-- Route -->
-                <path :d="routePath" class="delivery-route" />
+                <!-- Everything inside here changes independently -->
+                <svg class="route-overlay" viewBox="477 421 593.3779761904764 318.2870370370371"
+                    preserveAspectRatio="xMidYMid meet">
+                    <!-- Route -->
+                    <path :d="routePath" class="delivery-route" />
 
-                <!-- Starting point -->
-                <circle :cx="currentRoute.fromX" :cy="currentRoute.fromY" r="3" class="city-marker" />
+                    <!-- Starting point -->
+                    <circle :cx="currentRoute.fromX" :cy="currentRoute.fromY" r="3" class="city-marker" />
 
-                <!-- Destination -->
-                <circle :cx="currentRoute.toX" :cy="currentRoute.toY" r="3" class="city-marker" />
+                    <!-- Destination -->
+                    <circle :cx="currentRoute.toX" :cy="currentRoute.toY" r="3" class="city-marker" />
 
-                <!-- City Names Display on Map-->
-                <text :x="currentRoute.fromX" :y="currentRoute.fromY - 10" class="city-label" text-anchor="middle">
-                    {{ currentRoute.from }}
-                </text>
+                    <!-- City Names Display on Map-->
+                    <text :x="currentRoute.fromX" :y="currentRoute.fromY - 10" class="city-label" text-anchor="middle">
+                        {{ currentRoute.from }}
+                    </text>
 
-                <text :x="currentRoute.toX" :y="currentRoute.toY - 10" class="city-label" text-anchor="middle">
-                    {{ currentRoute.to }}
-                </text>
-                <!-- Moving horse -->
-                <image :key="currentRoute.name" :href="horseLogo" width="28" height="28" x="-14" y="-14">
-                    <animateMotion :path="routePath" dur="15s" repeatCount="indefinite" />
-                </image>
-            </svg>
+                    <text :x="currentRoute.toX" :y="currentRoute.toY - 10" class="city-label" text-anchor="middle">
+                        {{ currentRoute.to }}
+                    </text>
+                    <!-- Moving horse -->
+                    <image :key="currentRoute.name" :href="horseLogo" width="28" height="28" x="-14" y="-14">
+                        <animateMotion :path="routePath" dur="15s" repeatCount="indefinite" />
+                    </image>
+                </svg>
 
-        </div>
+            </div>
 
-        <div class="route-info">
-            <h2>
-                {{ currentRoute.from }} → {{ currentRoute.to }}
-            </h2>
-        </div>
+            <div class="route-info">
+                <h2>
+                    {{ currentRoute.from }} → {{ currentRoute.to }}
+                </h2>
+            </div>
 
-        <div v-if="routes.length > 1" class="route-selector">
-            <button v-for="(route, index) in routes" :key="route.name" :class="{ active: selectedRoute === index }"
-                @click="chooseRoute(index)">
-                {{ route.from }} → {{ route.to }}
-            </button>
+            <div v-if="routes.length > 1" class="route-selector">
+                <button v-for="(route, index) in routes" :key="route.name" :class="{ active: selectedRoute === index }"
+                    @click="chooseRoute(index)">
+                    {{ route.from }} → {{ route.to }}
+                </button>
+            </div>
         </div>
     </section>
 </template>
@@ -144,6 +146,25 @@ function chooseRoute(index) {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.map-panel {
+  width: 100%;
+
+  background-color: #cb9651;
+
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+
+  box-sizing: border-box;
+
+  border-radius: 0;
+
+  outline: 0.08rem solid rgba(203, 152, 12, 0.45);
+  outline-offset: -0.45rem;
+
+  box-shadow:
+    0 0.6rem 1.4rem rgba(47, 36, 28, 0.1);
+  margin-top: 2rem;
 }
 
 .map-frame {
@@ -269,6 +290,6 @@ function chooseRoute(index) {
 
 .route-selector button.active {
     background-color: #2f241c;
-    color: #e5ca98;
+    color: #e4c388;
 }
 </style>

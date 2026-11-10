@@ -32,7 +32,7 @@ function goToSignUp() {
 @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
 .home-page {
   min-height: 100dvh;
-  background-color: #e5ca98;
+  background-color: #e4c388;
 
   display: flex;
   flex-direction: column;
@@ -57,7 +57,7 @@ function goToSignUp() {
   margin: 0;
 
   font-family: 'Rye', serif;
-  font-size: clamp(2rem, 4.2vw, 4.8rem);
+  font-size: 3vw;
   font-weight: 400;
   line-height: 1.1;
 

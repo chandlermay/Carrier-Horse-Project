@@ -1,12 +1,13 @@
 <script setup>
-import settingsIcon from './Vintage Brown Gear Icon.png'
-import profileIcon from './Vintage Cowboy Silhouette Emblem.png'
+import settingsIcon from '../assets/Golden Settings.png'
+import profileIcon from '../assets/Golden Profile.png'
+import horseLogo from '../assets/Vintage Galloping Mail Horse Logo.png'
 </script>
 
 <template>
     <header class="header-bar">
         <div class="brand">
-            <img src="./Galloping Horse Mail Courier.png" alt="CarrierHorse Logo" class="horse-logo" />
+            <img :src="horseLogo" alt="CarrierHorse Logo" class="horse-logo" />
             Carrier Horse
         </div>
         <nav class="header-actions">
@@ -24,7 +25,7 @@ import profileIcon from './Vintage Cowboy Silhouette Emblem.png'
 @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
 
 .horse-logo {
-    width: 6rem;
+    width: 4rem;
     height: 4rem;
 }
 
@@ -50,6 +51,7 @@ import profileIcon from './Vintage Cowboy Silhouette Emblem.png'
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    gap: 1rem;
 }
 
 .header-actions {
@@ -92,7 +94,7 @@ import profileIcon from './Vintage Cowboy Silhouette Emblem.png'
     font-family: 'Rye', serif;
     font-size: 0.95rem;
 
-    color: #2f241c;
+    color: #250f0b;
 
     cursor: pointer;
 
