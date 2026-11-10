@@ -1,28 +1,27 @@
 <script setup>
+import { ref } from 'vue'
 import HorseStableCard from '../components/HorseStableCard.vue'
 import InboxCard from '../components/InboxCard.vue'
-const messages = [
-    {
-        sender: 'Chandler',
-        arrival: '8 hours',
-    },
-    {
-        sender: 'Hing',
-        arrival: '2 hours',
-    },
-]
+import ComposeMessage from '../components/ComposeMessage.vue'
+const showCompose = ref(false)
+
+function openCompose() {
+    showCompose.value = true
+}
+
+function closeCompose() {
+    showCompose.value = false
+}
 </script>
 
 <template>
     <main class="dashboard-page">
         <div class="dashboard-layout">
             <section class="dashboard-sidebar">
-                <HorseStableCard />
+                <HorseStableCard @compose="openCompose" />
                 <InboxCard />
 
             </section>
-
-
             <section class="map-section">
                 <div class="map-placeholder">
                     <span>Live Horse Map</span>
@@ -30,6 +29,7 @@ const messages = [
             </section>
 
         </div>
+        <ComposeMessage v-if="showCompose" @close="closeCompose" />
     </main>
 </template>
 
@@ -51,7 +51,7 @@ const messages = [
     width: min(96%, 90rem);
 
     margin-inline: auto;
-    margin-top: 3rem;
+    margin-top: 0.5rem;
     display: grid;
 
     grid-template-columns:

@@ -22,6 +22,7 @@ const horses = [
     progress: 0,
   },
 ]
+const emit = defineEmits(['compose'])
 </script>
 
 <template>
@@ -78,7 +79,7 @@ const horses = [
   </div>
 </div>
 
-    <button class="write-button">
+    <button class="write-button" @click="emit('compose')">
       Write Message →
     </button>
   </section>
