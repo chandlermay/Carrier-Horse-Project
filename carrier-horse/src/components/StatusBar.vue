@@ -1,5 +1,5 @@
 <script setup>
-import horseSprite from '../assets/horse-sprites.png'
+import horseSprite from '../assets/Four Pixel-Art Horse Running Frames.png'
 import westernLandscape from '../assets/western-landscape.png'
 </script>
 
