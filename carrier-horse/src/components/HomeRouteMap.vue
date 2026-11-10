@@ -4,18 +4,18 @@ import usaMap from './usa.svg'
 import horseLogo from "./Vintage Galloping Mail Horse Logo.png"
 
 const routes = [
-  {
-    name: 'New York City to Seattle',
-    from: 'New York City, NY',
-    to: 'Seattle, WA',
+    {
+        name: 'New York City to Seattle',
+        from: 'New York City, NY',
+        to: 'Seattle, WA',
 
-    fromX: 981.98,
-    fromY: 541.12,
+        fromX: 981.98,
+        fromY: 541.12,
 
-    toX: 526.14,
-    toY: 457.99,
+        toX: 526.14,
+        toY: 457.99,
 
-    path: `
+        path: `
       M 981.98 541.12
       L 909.03 531.75
       L 853.06 527.20
@@ -25,20 +25,20 @@ const routes = [
       L 571.41 457.83
       L 526.14 457.99
     `,
-  },
+    },
 
-  {
-    name: 'Los Angeles to Boston',
-    from: 'Los Angeles, CA',
-    to: 'Boston, MA',
+    {
+        name: 'Los Angeles to Boston',
+        from: 'Los Angeles, CA',
+        to: 'Boston, MA',
 
-    fromX: 564.67,
-    fromY: 621.84,
+        fromX: 564.67,
+        fromY: 621.84,
 
-    toX: 1009.09,
-    toY: 521.41,
+        toX: 1009.09,
+        toY: 521.41,
 
-    path: `
+        path: `
       M 564.67 621.84
       L 593.56 596.03
       L 624.64 540.78
@@ -48,20 +48,20 @@ const routes = [
       L 909.03 531.75
       L 1009.09 521.41
     `,
-  },
+    },
 
-  {
-    name: 'Chicago to Miami',
-    from: 'Chicago, IL',
-    to: 'Miami, FL',
+    {
+        name: 'Chicago to Miami',
+        from: 'Chicago, IL',
+        to: 'Miami, FL',
 
-    fromX: 853.06,
-    fromY: 527.20,
+        fromX: 853.06,
+        fromY: 527.20,
 
-    toX: 923.05,
-    toY: 722.05,
+        toX: 923.05,
+        toY: 722.05,
 
-    path: `
+        path: `
       M 853.06 527.20
       L 866.86 552.75
       L 870.62 571.05
@@ -70,7 +70,7 @@ const routes = [
       L 911.87 688.49
       L 923.05 722.05
     `,
-  },
+    },
 ]
 
 const selectedRoute = ref(0)
@@ -188,7 +188,7 @@ function chooseRoute(index) {
 
 .delivery-route {
     fill: none;
-    stroke: #d0b00d;
+    stroke: #cb980c;
     stroke-width: 2.5;
     stroke-dasharray: 7 6;
     stroke-linecap: round;
@@ -204,9 +204,9 @@ function chooseRoute(index) {
 }
 
 .city-label {
-  fill: #c33404;
-  font-family: 'Rye', serif;
-  font-size: 12px;
+    fill: #c33404;
+    font-family: 'Rye', serif;
+    font-size: 12px;
 }
 
 /* Information underneath */
@@ -255,6 +255,16 @@ function chooseRoute(index) {
     font-size: clamp(0.7rem, 1vw, 0.9rem);
 
     cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.route-selector button:hover {
+    background-color: rgba(47, 36, 28, 0.12);
+    transform: translateY(-0.15rem);
+    border-color: #2f241c;
 }
 
 .route-selector button.active {

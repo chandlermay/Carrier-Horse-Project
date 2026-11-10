@@ -24,8 +24,8 @@ import profileIcon from './Vintage Cowboy Silhouette Emblem.png'
 @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
 
 .horse-logo {
-    width: 10%;
-    height: 10%;
+    width: 6rem;
+    height: 4rem;
 }
 
 .header-bar {
@@ -39,14 +39,14 @@ import profileIcon from './Vintage Cowboy Silhouette Emblem.png'
     padding: 0 8%;
     box-sizing: border-box;
 
-    background-color: #e5ca98;
+    background-color: #2F241C;
     border-bottom: 1px solid rgba(47, 36, 28, 0.35);
 }
 
 .brand {
     font-family: 'Rye', serif;
-    font-size: 1.7rem;
-    color: #2f241c;
+    font-size: 1.5rem;
+    color: #cb980c;
     display: flex;
     justify-content: flex-start;
     align-items: center;

@@ -57,7 +57,7 @@ function goToSignUp() {
   margin: 0;
 
   font-family: 'Rye', serif;
-  font-size: clamp(2rem, 4.5vw, 4.8rem);
+  font-size: clamp(2rem, 4.2vw, 4.8rem);
   font-weight: 400;
   line-height: 1.1;
 
