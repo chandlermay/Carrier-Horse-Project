@@ -2,14 +2,15 @@
 import settingsIcon from '../assets/Golden Settings.png'
 import profileIcon from '../assets/Golden Profile.png'
 import horseLogo from '../assets/Vintage Galloping Mail Horse Logo.png'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
     <header class="header-bar">
-        <div class="brand">
+        <RouterLink to="/" class="brand">
             <img :src="horseLogo" alt="CarrierHorse Logo" class="horse-logo" />
             Carrier Horse
-        </div>
+        </RouterLink>
         <nav class="header-actions">
             <button class="icon-button">
                 <img :src="profileIcon" alt="Profile" />
@@ -48,6 +49,7 @@ import horseLogo from '../assets/Vintage Galloping Mail Horse Logo.png'
     font-family: 'Rye', serif;
     font-size: 1.5rem;
     color: #cb980c;
+    text-decoration: none;
     display: flex;
     justify-content: flex-start;
     align-items: center;
