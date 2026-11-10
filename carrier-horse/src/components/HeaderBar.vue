@@ -1,8 +1,31 @@
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
+import { supabase } from '../utils/supabase'
+
 import settingsIcon from '../assets/Golden Settings.png'
 import profileIcon from '../assets/Golden Profile.png'
 import horseLogo from '../assets/Vintage Galloping Mail Horse Logo.png'
-import { RouterLink } from 'vue-router'
+const router = useRouter()
+const showSettings = ref(false)
+
+function toggleSettings() {
+  showSettings.value = !showSettings.value
+}
+
+async function logOut() {
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    console.log(error.message)
+    return
+  }
+
+  showSettings.value = false
+
+  router.push('/')
+}
 </script>
 
 <template>
@@ -11,13 +34,32 @@ import { RouterLink } from 'vue-router'
             <img :src="horseLogo" alt="CarrierHorse Logo" class="horse-logo" />
             Carrier Horse
         </RouterLink>
+
         <nav class="header-actions">
             <button class="icon-button">
                 <img :src="profileIcon" alt="Profile" />
             </button>
-            <button class="icon-button">
-                <img :src="settingsIcon" alt="Settings" />
-            </button>
+
+            <div class="settings-wrapper">
+                <button
+                    class="icon-button"
+                    @click="toggleSettings"
+                >
+                    <img :src="settingsIcon" alt="Settings" />
+                </button>
+
+                <div
+                    v-if="showSettings"
+                    class="settings-menu"
+                >
+                    <button
+                        class="settings-option"
+                        @click="logOut"
+                    >
+                        Log Out
+                    </button>
+                </div>
+            </div>
         </nav>
     </header>
 </template>
@@ -96,7 +138,7 @@ import { RouterLink } from 'vue-router'
     font-family: 'Rye', serif;
     font-size: 0.95rem;
 
-    color: #250f0b;
+    color: #cb9651;
 
     cursor: pointer;
 
@@ -126,5 +168,41 @@ import { RouterLink } from 'vue-router'
     .header-actions button {
         font-size: 0.8rem;
     }
+    .settings-wrapper {
+    position: relative;
+}
+
+.settings-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+
+    min-width: 9rem;
+
+    background-color: #cb9651;
+    border: 0.1rem solid #cb9651;
+
+    box-shadow: 0 0.5rem 1rem rgba(37, 15, 11, 0.25);
+
+    z-index: 100;
+}
+
+.settings-option {
+    width: 100%;
+
+    padding: 0.8rem 1rem;
+
+    border: none;
+
+    background: none;
+    color: #cb9651;
+
+    text-align: left;
+    cursor: pointer;
+}
+
+.settings-option:hover {
+    background-color: #e4c388;
+}
 }
 </style>

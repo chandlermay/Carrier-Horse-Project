@@ -1,85 +1,104 @@
-<script setup>
-const horses = [
-  {
-    id: 1,
-    name: 'American Horse',
-    status: 'delivering',
-    destination: 'Seattle, WA',
-    progress: 62,
-  },
-  {
-    id: 2,
-    name: 'British Horse',
-    status: 'resting',
-    destination: null,
-    progress: 0,
-  },
-  {
-    id: 3,
-    name: 'Chinese Horse',
-    status: 'resting',
-    destination: null,
-    progress: 0,
-  },
-]
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { supabase } from '../utils/supabase'
+
 const emit = defineEmits(['compose'])
+
+type Horse = {
+  id: string
+  name: string
+  status: 'resting' | 'delivering'
+}
+
+const horses = ref<Horse[]>([])
+const loading = ref(true)
+
+async function getHorses() {
+  loading.value = true
+
+  const { data: userData } = await supabase.auth.getUser()
+  const user = userData.user
+
+  if (!user) {
+    loading.value = false
+    return
+  }
+
+  const { data, error } = await supabase
+    .from('horses')
+    .select('id, name, status')
+    .eq('owner_id', user.id)
+    .order('created_at', { ascending: true })
+
+  if (error) {
+    console.log('Error loading horses:', error.message)
+    loading.value = false
+    return
+  }
+
+  horses.value = data ?? []
+  loading.value = false
+}
+
+onMounted(() => {
+  getHorses()
+})
 </script>
 
 <template>
   <section class="stable-card">
     <h2>Horse Stable</h2>
 
-<div class="horse-list">
-  <div
-    v-for="horse in horses"
-    :key="horse.id"
-    class="horse"
-  >
-    <div class="horse-header">
-      <span class="horse-name">
-        {{ horse.name }}
-      </span>
+    <div class="horse-list">
+      <p v-if="loading">
+        Loading horses...
+      </p>
 
-      <span
-        class="status"
-        :class="horse.status"
+      <p v-else-if="horses.length === 0">
+        No horses in your stable.
+      </p>
+
+      <div
+        v-else
+        v-for="horse in horses"
+        :key="horse.id"
+        class="horse"
       >
-        <span class="status-dot"></span>
+        <div class="horse-header">
+          <span class="horse-name">
+            {{ horse.name }}
+          </span>
 
-        {{ horse.status === 'delivering' ? 'Deployed' : 'Resting' }}
-      </span>
-    </div>
+          <span
+            class="status"
+            :class="horse.status"
+          >
+            <span class="status-dot"></span>
 
-    <div
-      v-if="horse.status === 'delivering'"
-      class="delivery-info"
-    >
-      <span>
-        En route to {{ horse.destination }}
-      </span>
+            {{ horse.status === 'delivering' ? 'Deployed' : 'Resting' }}
+          </span>
+        </div>
 
-      <div class="progress-track">
         <div
-          class="progress"
-          :style="{ width: horse.progress + '%' }"
-        ></div>
+          v-if="horse.status === 'resting'"
+          class="resting-info"
+        >
+          Ready for delivery
+        </div>
+
+        <div
+          v-else
+          class="delivery-info"
+        >
+          Currently delivering
+        </div>
       </div>
-
-      <span class="progress-text">
-        {{ horse.progress }}% complete
-      </span>
     </div>
 
-    <div
-      v-else
-      class="resting-info"
+    <button
+      class="write-button"
+      @click="emit('compose')"
     >
-      Ready for delivery
-    </div>
-  </div>
-</div>
-
-    <button class="write-button" @click="emit('compose')">
       Write Message →
     </button>
   </section>

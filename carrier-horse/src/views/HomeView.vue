@@ -7,7 +7,7 @@ function goToDashboard() {
     router.push('/dashboard')
 }
 function goToSignUp() {
-    router.push('/signup')
+    router.push('/auth')
 } function goToHowDoesItWork() {
     router.push('/howdoesitwork')
 }
@@ -21,7 +21,7 @@ function goToSignUp() {
         </section>
         <nav class="home-nav">
             <button @click="goToDashboard">Send a horse →</button>
-            <button @click="goToSignUp">Sign Up →</button>
+            <button @click="goToSignUp">[ Sign Up ]  [ Log In ]</button>
             <button @click="goToHowDoesItWork"> How does it work? →</button>
         </nav>
 
