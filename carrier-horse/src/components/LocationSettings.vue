@@ -373,7 +373,7 @@ onMounted(() => {
 <style scoped>
 .location-card {
   width: min(100%, 32rem);
-
+  
   box-sizing: border-box;
 
   padding: 2rem;
@@ -388,12 +388,11 @@ onMounted(() => {
 
 .location-card h2 {
   margin-top: 0;
-
+  text-align: center;
   font-family: 'Rye', serif;
 
   font-weight: normal;
 }
-
 
 .description {
   font-family: Georgia, serif;
