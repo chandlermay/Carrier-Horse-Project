@@ -15,8 +15,25 @@ const message = ref('')
 async function signUp() {
   message.value = ''
 
+  const cleanedUsername = username.value.trim()
+
+  if (cleanedUsername === '') {
+    message.value = 'Enter a username.'
+    return
+  }
+
+  if (email.value.trim() === '') {
+    message.value = 'Enter an email.'
+    return
+  }
+
+  if (password.value === '') {
+    message.value = 'Enter a password.'
+    return
+  }
+
   const { data, error } = await supabase.auth.signUp({
-    email: email.value,
+    email: email.value.trim(),
     password: password.value
   })
 
@@ -34,7 +51,7 @@ async function signUp() {
     .from('profiles')
     .insert({
       id: data.user.id,
-      username: username.value
+      username: cleanedUsername
     })
 
   if (profileError) {
@@ -46,7 +63,7 @@ async function signUp() {
     .from('horses')
     .insert({
       owner_id: data.user.id,
-      name: 'American Quarter Horse',
+      name: 'American Horse',
       status: 'resting'
     })
 
@@ -54,6 +71,7 @@ async function signUp() {
     message.value = horseError.message
     return
   }
+
   router.push('/dashboard')
 }
 
@@ -61,7 +79,7 @@ async function logIn() {
   message.value = ''
 
   const { error } = await supabase.auth.signInWithPassword({
-    email: email.value,
+    email: email.value.trim(),
     password: password.value
   })
 
@@ -77,6 +95,7 @@ async function logIn() {
 <template>
   <main class="auth-page">
     <section class="auth-card">
+
       <div class="auth-heading">
         <h1>
           {{ mode === 'signup' ? 'Join the Trail' : 'Welcome Back' }}
@@ -92,45 +111,92 @@ async function logIn() {
       </div>
 
       <div class="auth-tabs">
-        <button class="tab-button" :class="{ active: mode === 'signup' }" @click="mode = 'signup'">
+
+        <button
+          class="tab-button"
+          :class="{ active: mode === 'signup' }"
+          @click="mode = 'signup'"
+        >
           Sign Up
         </button>
 
-        <button class="tab-button" :class="{ active: mode === 'login' }" @click="mode = 'login'">
+        <button
+          class="tab-button"
+          :class="{ active: mode === 'login' }"
+          @click="mode = 'login'"
+        >
           Log In
         </button>
+
       </div>
 
       <div class="auth-form">
-        <div v-if="mode === 'signup'" class="form-group">
-          <label for="username">Username</label>
 
-          <input id="username" v-model="username" type="text" placeholder="Choose a username" />
+        <div
+          v-if="mode === 'signup'"
+          class="form-group"
+        >
+          <label for="username">
+            Username
+          </label>
+
+          <input
+            id="username"
+            v-model="username"
+            type="text"
+            placeholder="Choose a username"
+          />
         </div>
 
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email">
+            Email
+          </label>
 
-          <input id="email" v-model="email" type="email" placeholder="Enter your email" />
+          <input
+            id="email"
+            v-model="email"
+            type="email"
+            placeholder="Enter your email"
+          />
         </div>
 
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">
+            Password
+          </label>
 
-          <input id="password" v-model="password" type="password" placeholder="Enter your password" />
+          <input
+            id="password"
+            v-model="password"
+            type="password"
+            placeholder="Enter your password"
+          />
         </div>
 
-        <button v-if="mode === 'signup'" class="submit-button" @click="signUp">
+        <button
+          v-if="mode === 'signup'"
+          class="submit-button"
+          @click="signUp"
+        >
           Create Account
         </button>
 
-        <button v-else class="submit-button" @click="logIn">
+        <button
+          v-else
+          class="submit-button"
+          @click="logIn"
+        >
           Log In
         </button>
 
-        <p v-if="message" class="auth-message">
+        <p
+          v-if="message"
+          class="auth-message"
+        >
           {{ message }}
         </p>
+
       </div>
 
       <div class="auth-footer">
@@ -138,6 +204,7 @@ async function logIn() {
         <span>✦</span>
         <span class="footer-line"></span>
       </div>
+
     </section>
   </main>
 </template>
@@ -173,7 +240,6 @@ async function logIn() {
     0 1rem 2rem rgba(37, 15, 11, 0.2);
 }
 
-/* Inner western-style frame */
 .auth-card::before {
   content: '';
 
@@ -292,10 +358,6 @@ async function logIn() {
 
   font-family: Georgia, serif;
   font-size: 1rem;
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
 }
 
 .form-group input::placeholder {
@@ -305,13 +367,15 @@ async function logIn() {
 .form-group input:focus {
   border-color: #cb980c;
 
-  box-shadow: 0 0 0 0.15rem rgba(203, 152, 12, 0.3);
+  box-shadow:
+    0 0 0 0.15rem rgba(203, 152, 12, 0.3);
 }
 
 .submit-button {
   width: 100%;
 
   margin-top: 0.5rem;
+
   padding: 0.9rem 1rem;
 
   border: 0.1rem solid #250f0b;
@@ -323,20 +387,10 @@ async function logIn() {
   font-size: 1rem;
 
   cursor: pointer;
-
-  transition:
-    transform 0.15s ease,
-    background-color 0.2s ease;
 }
 
 .submit-button:hover {
   background-color: #3b1a13;
-
-  transform: translateY(-0.08rem);
-}
-
-.submit-button:active {
-  transform: translateY(0);
 }
 
 .auth-message {
@@ -369,7 +423,8 @@ async function logIn() {
   width: 30%;
   height: 0.06rem;
 
-  background-color: rgba(37, 15, 11, 0.55);
+  background-color:
+    rgba(37, 15, 11, 0.55);
 }
 
 @media (max-width: 35rem) {
